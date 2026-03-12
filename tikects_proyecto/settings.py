@@ -76,15 +76,15 @@ WSGI_APPLICATION = 'tikects_proyecto.wsgi.application'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.mysql',
-            'NAME': 'tikectsbd',
-            'USER': 'root',
-            'PASSWORD': 'erick2978',
-            'HOST': 'localhost',
-            'PORT': '3306',
-        }
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'tikectsbd',
+        'USER': 'django_user',
+        'PASSWORD': 'erick2978',
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
+}
 
 
 # Password validation

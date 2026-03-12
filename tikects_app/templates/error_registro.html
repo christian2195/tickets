@@ -1,7 +1,15 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>Ocurrió un error durante el registro</h1>
-    <p>{{ error }}</p>
-    <a href="{% url 'registrar_usuarios' %}">Volver al formulario</a>
+<div class="container mt-5">
+    <div class="alert alert-danger text-center shadow">
+        <h1 class="mb-4">
+            <i class="fas fa-exclamation-triangle me-2"></i> Ocurrió un error durante el registro
+        </h1>
+        <p class="lead">{{ error }}</p>
+        <a href="{% url 'registrar_usuarios' %}" class="btn btn-primary mt-3">
+            <i class="fas fa-arrow-left me-2"></i> Volver al formulario
+        </a>
+    </div>
+</div>
 {% endblock %}

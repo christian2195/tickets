@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% block content %}
+ 
+    <div class="container mt-5">
+        <!-- Título principal -->
+        <h1 class="text-center mb-4 text-primary">
+            <i class="fas fa-ticket-alt me-2"></i> Detalle del Ticket
+        </h1>
+
+        <!-- Información del Tikect -->
+        <div class="card">
+            <div class="card-header">
+                <h3>{{ tikect.titulo }}</h3>
+            </div>
+            <div class="card-body">
+                <p><strong>Fecha:</strong> {{ tikect.creado|date:"d/m/Y" }}</p>
+                <p><strong>Hora:</strong> {{ tikect.creado|date:"h:i A" }}</p>
+                <p><strong>Descripción:</strong> {{ tikect.descripcion }}</p>
+                <p><strong>Usuario:</strong> {{ tikect.usuario.username }} ({{ tikect.usuario.cliente.nombre }} {{tikect.usuario.cliente.apellido}})</p>
+                <p><strong>Gerencia:</strong> {{ tikect.gerencia }}</p>
+                <p><strong>Servicio:</strong> {{ tikect.servicio_perteneciente }}</p>
+                <p><strong>Estado:</strong> {% if tikect.cerrado %} Cerrado {% else %} Abierto {% endif %}</p>
+                {% if tikect.cerrado %} <p><strong>Solucion:</strong> {{ tikect.descripcion_solucion }} {% endif %}</p>
+                {% if not tikect.cerrado %}
+                <button type="button" class="btn btn-danger mt-3" data-bs-toggle="modal" data-bs-target="#confirmModal">
+                    <i class="fas fa-times-circle me-2"></i> Cerrar Tikect
+                </button>
+                {% endif %}
+            </div>
+            <div class="card-footer text-center">
+                {% if request.user.agente %}
+                <a href="{% url 'ver_tikects_asignados_agentes' %}" class="btn btn-secondary">
+                    <i class="fas fa-arrow-left me-2"></i> Volver a la Lista de Tikects
+                </a>
+                {% else %}
+                <a href="{% url 'ver_tikects' %}" class="btn btn-secondary">
+                    <i class="fas fa-arrow-left me-2"></i> Volver a la Lista de Tikects
+                </a>
+                {% endif %}
+
+                {% if not tikect.cerrado %}
+                    {% if not reasignado %}
+                        <a href="{% url 'reasignar_tikect' tikect.id %}" class="btn btn-warning ms-2">
+                            <i class="fas fa-exchange-alt me-2"></i> Reasignar Tikect
+                        </a>
+                    {% endif %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de confirmación -->
+    <div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmModalLabel">Confirmar Cierre de Tikect</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form method="post" action="{% url 'cerrar_tikect' tikect.id %}" class="d-inline">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="descripcionSolucion" class="form-label">Descripción de la Solución</label>
+                            <textarea class="form-control" id="descripcionSolucion" name="descripcion_solucion" rows="3" required></textarea>
+                        </div>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-danger">Cerrar Tikect</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

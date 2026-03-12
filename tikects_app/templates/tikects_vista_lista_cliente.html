@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container mt-5">
+        <!-- Título principal -->
+        <h1 class="text-center mb-4 text-primary">
+            <i class="fas fa-ticket-alt me-2"></i> Mis Tickets
+        </h1>
+
+        <!-- Botones de filtro -->
+        <div class="mb-4 text-center">
+            <a href="{% url 'ver_mis_tikects' %}" class="btn btn-primary me-2">
+                <i class="fas fa-list me-2"></i> Vista General
+            </a>
+            <a href="{% url 'ver_mis_tikects_cerrados' %}" class="btn btn-danger me-2">
+                <i class="fas fa-times-circle me-2"></i> Tickets Cerrados
+            </a>
+            <a href="{% url 'ver_mis_tikects_abiertos' %}" class="btn btn-success">
+                <i class="fas fa-check-circle me-2"></i> Tickets Abiertos
+            </a>
+        </div>
+
+        <!-- Tabla de Tikects -->
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead class="table-success">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Fecha</th>
+                        <th scope="col">Hora</th>
+                        <th scope="col">Título</th>
+                        <th scope="col">Descripción</th>
+                        <th scope="col">Gerencia</th>
+                        <th scope="col">Servicio</th>
+                        <th scope="col">Estado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for tikect in page_obj %}
+                    <tr>
+                        <th scope="row">{{ forloop.counter }}</th>
+                        <td>{{ tikect.creado|date:"d/m/Y" }}</td>
+                        <td>{{ tikect.creado|date:"h:i A" }}</td>
+                        <td>{{ tikect.titulo }}</td>
+                        <td>{{ tikect.descripcion }}</td>
+                        <td>{{ tikect.gerencia }}</td>
+                        <td>{{ tikect.servicio_perteneciente }}</td>
+                        <td>{% if tikect.cerrado is False %} Abierto {% else %} Cerrado {% endif %}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Paginación -->
+        <div class="pagination">
+            {% if page_obj.has_previous %}
+                <a href="?page={{ page_obj.previous_page_number }}" class="btn btn-secondary">Anterior</a>
+            {% endif %}
+            {% for page in page_obj.paginator.page_range %}
+                {% if page == page_obj.number %}
+                    <a href="?page={{ page }}" class="btn btn-primary">{{ page }}</a>
+                {% else %}
+                    <a href="?page={{ page }}" class="btn btn-secondary">{{ page }}</a>
+                {% endif %}
+            {% endfor %}
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}" class="btn btn-secondary">Siguiente</a>
+            {% endif %}
+        </div>
+    </div>
+
+    <script>
+        // Recargar la página cada 30 segundos (30000 milisegundos)
+        setTimeout(function(){
+            location.reload();
+        }, 30000);
+    </script>
+{% endblock %}

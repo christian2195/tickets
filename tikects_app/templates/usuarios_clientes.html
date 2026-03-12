@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container mt-5">
+        <!-- Título principal -->
+        <h1 class="text-center mb-4 text-primary">
+            <i class="fas fa-users me-2"></i> Lista de Clientes
+        </h1>
+
+        <!-- Botón para agregar nuevo cliente -->
+        <div class="mb-4 text-center">
+            <a href="{% url 'crear_cliente' %}" class="btn btn-success">
+                <i class="fas fa-plus-circle me-2"></i> Agregar Cliente
+            </a>
+        </div>
+
+        <!-- Tabla de Clientes -->
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead class="table-success">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Apellido</th>
+                        <th scope="col">Nombre de usuario</th>
+                        <th scope="col">Correo Electrónico</th>
+                        <th scope="col">Gerencia</th>
+                        <th scope="col">Accion</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for cliente in page_obj %}
+                    <tr>
+                        <th scope="row">{{ forloop.counter }}</th>
+                        <td>{{ cliente.nombre }}</td>
+                        <td>{{ cliente.apellido }}</td>
+                        <td>{{ cliente.nombre_usuario }}</td>
+                        <td>{% if cliente.email is None %} Sin correo {% else %} {{ cliente.email }} {% endif %}</td>
+                        <td>{{ cliente.gerencia }}</td>
+                        <td>
+                            <a href="{% url 'editar_cliente' cliente.id %}" class="btn btn-sm btn-warning">
+                                <i class="fas fa-edit"></i> Editar
+                            </a>
+                            <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#confirmModal" data-cliente-id="{{ cliente.id }}">
+                                <i class="fas fa-trash-alt"></i> Eliminar
+                            </button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Paginación -->
+        <div class="pagination">
+            {% if page_obj.has_previous %}
+                <a href="?page={{ page_obj.previous_page_number }}" class="btn btn-secondary">Anterior</a>
+            {% endif %}
+            {% for page in page_obj.paginator.page_range %}
+                {% if page == page_obj.number %}
+                    <a href="?page={{ page }}" class="btn btn-primary">{{ page }}</a>
+                {% else %}
+                    <a href="?page={{ page }}" class="btn btn-secondary">{{ page }}</a>
+                {% endif %}
+            {% endfor %}
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}" class="btn btn-secondary">Siguiente</a>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Modal de confirmación -->
+    <div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmModalLabel">Confirmar eliminación</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    ¿Estás seguro de que deseas eliminar este cliente?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <form id="deleteForm" method="post" class="d-inline">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger">Eliminar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Manejar el evento de mostrar el modal
+        var confirmModal = document.getElementById('confirmModal');
+        confirmModal.addEventListener('show.bs.modal', function (event) {
+            var button = event.relatedTarget; // Botón que activó el modal
+            var clienteId = button.getAttribute('data-cliente-id'); // Extraer información del atributo data-cliente-id
+
+            // Actualizar la acción del formulario con el ID del cliente
+            var deleteForm = document.getElementById('deleteForm');
+            deleteForm.action = '{% url "eliminar_cliente" 0 %}'.replace('0', clienteId);
+        });
+    </script>
+{% endblock %}

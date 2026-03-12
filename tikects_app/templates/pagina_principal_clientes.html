@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container mt-5">
+        <!-- Sección de bienvenida -->
+        <div class="text-center p-5 rounded" style="background-color: #f8f9fa;">
+            <h1 class="display-4 text-primary mb-3 animated-title">Bienvenido a TickPro</h1>
+            <p class="lead text-dark">
+                La mejor solución para la gestión de tickets y soporte técnico.
+            </p>
+            <a href="{% url 'ver_mis_tikects' %}" class="btn btn-primary btn-lg mt-3">Explorar Tikects</a>
+        </div>
+    </div>
+{% endblock %}

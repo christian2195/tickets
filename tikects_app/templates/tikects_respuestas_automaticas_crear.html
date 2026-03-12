@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container mt-5">
+        <!-- Título del formulario -->
+        <h1 class="text-center text-dark mb-4">
+            <i class="fas fa-comments me-2"></i> Crear Respuesta Automática
+        </h1>
+
+        <!-- Formulario -->
+        <form action="" method="POST" class="shadow p-4 rounded bg-light">
+            {% csrf_token %}
+            <!-- Campo Nombre -->
+            <div class="mb-3">
+                <label for="respuesta" class="form-label">Respuesta:</label>
+                <input type="text" name="respuesta" id="respuesta" class="form-control" placeholder="Ingresa la respuesta automática" required>
+            </div>
+
+            <!-- Botón Crear -->
+            <div class="text-center">
+                <button type="submit" class="btn btn-dark">
+                    <i class="fas fa-check-circle me-2"></i> Crear
+                </button>
+            </div>
+        </form>
+    </div>
+{% endblock %}

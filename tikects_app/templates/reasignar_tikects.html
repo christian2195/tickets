@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container mt-5">
+        <h1 class="text-center mb-4 text-primary">Reasignar Tikect</h1>
+        <div class="card">
+            <div class="card-header">
+                <h3>{{ tikect.titulo }}</h3>
+            </div>
+            <div class="card-body">
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="nuevoAgente" class="form-label">Seleccionar nuevo agente</label>
+                        <select class="form-select" id="nuevoAgente" name="nuevo_agente" required>
+                            {% for agente in agentes_grupo %}
+                                <option value="{{ agente.id }}">{{ agente.nombre_usuario }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Reasignar Tikect</button>
+                    <a href="{% url 'detalle_tikect' tikect.id %}" class="btn btn-secondary ms-2">Cancelar</a>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

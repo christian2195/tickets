@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container mt-5">
+        <!-- Título principal -->
+        <h1 class="text-center mb-4 text-primary">
+            <i class="fas fa-key me-2"></i> Gestión de Permisos
+        </h1>
+
+        <!-- Descripción -->
+        <p class="text-center text-muted mb-4">
+            Administra los permisos de los usuarios en los diferentes grupos.
+        </p>
+
+        <!-- Tablas de Permisos -->
+        <div class="row">
+            <!-- Tabla de Agentes -->
+            <div class="col-md-6">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead class="table-success">
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Nombre de Usuario</th>
+                                <th scope="col">Permiso</th>
+                                <th scope="col">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for agente in agentes %}
+                            <tr>
+                                <th scope="row">{{ forloop.counter }}</th>
+                                <td>{{ agente.usuario.username }}</td>
+                                <td><!-- Aquí puedes agregar el permiso del agente si lo tienes disponible --></td>
+                                <td>
+                                    <button class="btn btn-sm btn-warning">
+                                        <i class="fas fa-edit"></i> Editar
+                                    </button>
+                                    <button class="btn btn-sm btn-danger">
+                                        <i class="fas fa-trash-alt"></i> Eliminar
+                                    </button>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Tabla de Grupos -->
+            <div class="col-md-6">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead class="table-success">
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Nombre del Grupo</th>
+                                <th scope="col">Permiso</th>
+                                <th scope="col">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for grupo in grupos %}
+                            <tr>
+                                <th scope="row">{{ forloop.counter }}</th>
+                                <td>{{ grupo.nombre }}</td>
+                                <td><!-- Aquí puedes agregar el permiso del grupo si lo tienes disponible --></td>
+                                <td>
+                                    <button class="btn btn-sm btn-warning">
+                                        <i class="fas fa-edit"></i> Editar
+                                    </button>
+                                    <button class="btn btn-sm btn-danger">
+                                        <i class="fas fa-trash-alt"></i> Eliminar
+                                    </button>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Botón para agregar nuevo permiso -->
+        <div class="text-center mt-4">
+            <a href="#" class="btn btn-success">
+                <i class="fas fa-plus-circle me-2"></i> Agregar Permiso
+            </a>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container mt-5">
+        <!-- Sección de bienvenida -->
+        <div class="text-center p-5 rounded" style="background-color: #f8f9fa;">
+            <h1 class="display-4 text-primary mb-3 animated-title">Bienvenido a TickPro</h1>
+            <p class="lead text-dark">
+                La mejor solución para la gestión de tickets y soporte técnico.
+            </p>
+            <a href="{% url 'ver_tikects' %}" class="btn btn-primary btn-lg mt-3">Explorar Tikects</a>
+        </div>
+
+        <!-- Sección de tarjetas -->
+        <div class="row mt-5">
+            <div class="col-md-4 mb-4">
+                <div class="card shadow-lg" style="background-color: #e3f2fd;">
+                    <div class="card-body text-center">
+                        <h5 class="card-title text-dark">Gestión de Clientes</h5>
+                        <p class="card-text text-secondary">Administra y organiza tus clientes fácilmente.</p>
+                        
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 mb-4">
+                <div class="card shadow-lg" style="background-color: #f1f8e9;">
+                    <div class="card-body text-center">
+                        <h5 class="card-title text-dark">Gestión de Usuarios</h5>
+                        <p class="card-text text-secondary">Administra agentes, permisos y grupos.</p>
+                        
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 mb-4">
+                <div class="card shadow-lg" style="background-color: #fff3e0;">
+                    <div class="card-body text-center">
+                        <h5 class="card-title text-dark">Gestión de Tikects</h5>
+                        <p class="card-text text-secondary">Supervisa colas y servicios eficientemente.</p>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

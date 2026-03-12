@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Registrar usuarios desde archivo Excel</h1>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Registrar Usuarios</button>
+    </form>
+{% endblock %}

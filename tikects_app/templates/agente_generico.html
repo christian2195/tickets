@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container mt-5">
+        <h1 class="text-center mb-4 text-primary">
+            <i class="fas fa-user-cog me-2"></i> Configuración de Agente Genérico
+        </h1>
+
+        <!-- Formulario -->
+        <form method="post" class="shadow p-4 rounded bg-light">
+            {% csrf_token %}
+            
+            <!-- Selección de Servicio -->
+            <div class="mb-3">
+                <label for="servicio" class="form-label">Seleccionar Servicio:</label>
+                <select class="form-select" id="servicio" name="servicio" required>
+                    <option value="" disabled selected>-- Selecciona un servicio --</option>
+                    {% for servicio in servicios %}
+                        <option value="{{ servicio.id }}">{{ servicio.nombre }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <!-- Selección de Agente Actual -->
+            <div class="mb-3">
+                <label for="agente_actual" class="form-label">Seleccionar Agente Actual:</label>
+                <select class="form-select" id="agente_actual" name="agente_actual" required>
+                    <option value="" disabled selected>-- Selecciona un agente --</option>
+                    {% for agente in agentes %}
+                        <option value="{{ agente.id }}">{{ agente.usuario.username }} ({{ agente.nombre }} {{ agente.apellido }})</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <!-- Selección de Agente de Reasignación -->
+            <div class="mb-3">
+                <label for="agente_reasignacion" class="form-label">Seleccionar Agente de Reasignación (opcional):</label>
+                <select class="form-select" id="agente_reasignacion" name="agente_reasignacion">
+                    <option value="" disabled selected>-- Selecciona un agente --</option>
+                    {% for agente in agentes %}
+                        <option value="{{ agente.id }}">{{ agente.usuario.username }} ({{ agente.nombre }} {{ agente.apellido }})</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <!-- Tiempo de Reasignación -->
+            <div class="mb-3">
+                <label for="tiempo_reasignacion" class="form-label">Tiempo de Reasignación (en minutos):</label>
+                <select class="form-select" id="tiempo_reasignacion" name="tiempo_reasignacion">
+                    <option value="" disabled selected>-- Selecciona el tiempo de reasignación --</option>
+                    <option value="10">10 minutos</option>
+                    <option value="20">20 minutos</option>
+                    <option value="30">30 minutos</option>
+                    <option value="40">40 minutos</option>
+                    <option value="50">50 minutos</option>
+                    <option value="60">60 minutos</option>
+                </select>
+            </div>
+
+            <!-- Botón de envío -->
+            <div class="text-center">
+                <button type="submit" class="btn btn-success">
+                    <i class="fas fa-check-circle me-2"></i> Asignar Agente
+                </button>
+            </div>
+        </form>
+    </div>
+{% endblock %}

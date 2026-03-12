@@ -1,0 +1,7 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Ocurrió un error durante el registro</h1>
+    <p>{{ error }}</p>
+    <a href="{% url 'registrar_usuarios' %}">Volver al formulario</a>
+{% endblock %}

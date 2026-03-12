@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Registrar Tickets desde Excel</h1>
+        <form method="POST">
+            {% csrf_token %}
+            <button type="submit">Registrar Tickets</button>
+        </form>
+
+        <!-- Mostrar mensajes -->
+        {% if messages %}
+            <ul>
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+{% endblock %}

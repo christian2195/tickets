@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container mt-5">
+        <!-- Título del formulario -->
+        <h1 class="text-center text-primary mb-4">
+            <i class="fas fa-edit me-2"></i> Editar Servicio
+        </h1>
+
+        <!-- Formulario -->
+        <form method="post" class="shadow p-4 rounded bg-light">
+            {% csrf_token %}
+            
+            <!-- Campo Nombre -->
+            <div class="mb-3">
+                <label for="nombre" class="form-label">Nombre del Servicio:</label>
+                <input type="text" class="form-control" id="nombre" name="nombre" value="{{ servicio.nombre }}" placeholder="Ingresa el nombre del servicio" required>
+            </div>
+
+            <!-- Campo Descripcion -->
+            <div class="mb-3">
+                <label for="descripcion" class="form-label">Descripción del Servicio:</label>
+                <textarea class="form-control" id="descripcion" name="descripcion" rows="5" placeholder="Ingresa la descripción del servicio" required>{{ servicio.descripcion }}</textarea>
+            </div>
+
+            <!-- Botones -->
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-save me-2"></i> Guardar Cambios
+                </button>
+                <a href="{% url 'tikects_servicios' %}" class="btn btn-secondary ms-2">
+                    <i class="fas fa-arrow-left me-2"></i> Cancelar
+                </a>
+            </div>
+        </form>
+    </div>
+{% endblock %}

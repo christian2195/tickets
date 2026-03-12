@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container mt-5">
+        <!-- Título principal -->
+        <h1 class="text-center mb-4 text-primary">
+            <i class="fas fa-ticket-alt me-2"></i> Crear Ticket
+        </h1>
+
+        <!-- Formulario de creación de tikects -->
+        <form method="post" class="shadow p-4 rounded bg-light">
+            {% csrf_token %}
+
+            <!-- Campo de Servicio -->
+            <div class="mb-3">
+                <label for="servicio" class="form-label">Seleccionar Servicio:</label>
+                <select class="form-select" id="servicio" name="servicio" required>
+                    <option value="" disabled selected>-- Selecciona un servicio --</option>
+                    {% for servicios in servicios %}
+                        <option value="{{ servicios.id }}">{{ servicios.nombre }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <!-- Campo de Cola (oculto, sincronizado con "servicio") -->
+            <input type="hidden" id="cola" name="cola">
+
+            <!-- Campo de Título -->
+            <div class="mb-3">
+                <label for="titulo" class="form-label">Título:</label>
+                <input type="text" class="form-control" id="titulo" name="titulo" required>
+            </div>
+
+            <!-- Campo de Descripción -->
+            <div class="mb-3">
+                <label for="descripcion" class="form-label">Descripción:</label>
+                <textarea class="form-control" id="descripcion" name="descripcion" rows="4" required></textarea>
+            </div>
+
+            <!-- Campo de Gerencia -->
+            <div class="mb-3">
+                <label for="gerencia" class="form-label">Seleccionar Gerencia:</label>
+                <select class="form-select" id="gerencia" name="gerencia" required>
+                    <option value="" disabled selected>-- Selecciona una gerencia --</option>
+                    {% for gerencia in gerencias %}
+                        <option value="{{ gerencia.nombre }}">{{ gerencia.nombre }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <!-- Botón de envío -->
+            <div class="text-center">
+                <button type="submit" class="btn btn-success">
+                    <i class="fas fa-check-circle me-2"></i> Crear Tikect
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0/dist/js/select2.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0/dist/css/select2.min.css" rel="stylesheet" />
+
+    <script>
+        // Habilitar Select2 para el campo de gerencia
+        $(document).ready(function () {
+            $('#gerencia').select2({
+                placeholder: "-- Selecciona o escribe una gerencia --",
+                allowClear: true
+            });
+        });
+
+        // Sincronizar automáticamente el valor de "servicio" con "cola"
+        const servicioSelect = document.getElementById('servicio');
+        const colaInput = document.getElementById('cola');
+
+        servicioSelect.addEventListener('change', function () {
+            colaInput.value = this.value; // Actualiza el valor del campo oculto "cola"
+        });
+    </script>
+{% endblock %}
+

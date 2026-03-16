@@ -1,0 +1,93 @@
+[0;32m[2026-03-13 15:20:53] Iniciando despliegue en producción...[0m
+[0;34m[INFO] Verificando entorno virtual...[0m
+[0;32m[2026-03-13 15:20:53] ✅ Entorno virtual encontrado[0m
+[0;34m[INFO] Activando entorno virtual...[0m
+[0;32m[2026-03-13 15:20:53] ✅ Entorno virtual activado[0m
+[0;34m[INFO] Actualizando pip...[0m
+Requirement already satisfied: pip in ./venv/lib/python3.12/site-packages (24.0)
+Collecting pip
+  Downloading pip-26.0.1-py3-none-any.whl.metadata (4.7 kB)
+Downloading pip-26.0.1-py3-none-any.whl (1.8 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.8/1.8 MB 6.2 MB/s eta 0:00:00
+Installing collected packages: pip
+  Attempting uninstall: pip
+    Found existing installation: pip 24.0
+    Uninstalling pip-24.0:
+      Successfully uninstalled pip-24.0
+Successfully installed pip-26.0.1
+[0;32m[2026-03-13 15:20:56] ✅ Pip actualizado[0m
+[0;34m[INFO] Instalando dependencias...[0m
+Requirement already satisfied: asgiref==3.8.1 in ./venv/lib/python3.12/site-packages (from -r requirements.txt (line 1)) (3.8.1)
+Requirement already satisfied: chardet==5.2.0 in ./venv/lib/python3.12/site-packages (from -r requirements.txt (line 2)) (5.2.0)
+Requirement already satisfied: Django==5.0.6 in ./venv/lib/python3.12/site-packages (from -r requirements.txt (line 3)) (5.0.6)
+Requirement already satisfied: et_xmlfile==2.0.0 in ./venv/lib/python3.12/site-packages (from -r requirements.txt (line 4)) (2.0.0)
+Requirement already satisfied: gunicorn==23.0.0 in ./venv/lib/python3.12/site-packages (from -r requirements.txt (line 5)) (23.0.0)
+Requirement already satisfied: numpy==2.2.4 in ./venv/lib/python3.12/site-packages (from -r requirements.txt (line 6)) (2.2.4)
+Requirement already satisfied: openpyxl==3.1.5 in ./venv/lib/python3.12/site-packages (from -r requirements.txt (line 7)) (3.1.5)
+Requirement already satisfied: packaging==24.2 in ./venv/lib/python3.12/site-packages (from -r requirements.txt (line 8)) (24.2)
+Requirement already satisfied: pandas==2.2.3 in ./venv/lib/python3.12/site-packages (from -r requirements.txt (line 9)) (2.2.3)
+Requirement already satisfied: pillow==11.1.0 in ./venv/lib/python3.12/site-packages (from -r requirements.txt (line 10)) (11.1.0)
+Requirement already satisfied: psycopg2-binary==2.9.11 in ./venv/lib/python3.12/site-packages (from -r requirements.txt (line 11)) (2.9.11)
+Requirement already satisfied: PyMySQL==1.1.1 in ./venv/lib/python3.12/site-packages (from -r requirements.txt (line 12)) (1.1.1)
+Requirement already satisfied: python-dateutil==2.9.0.post0 in ./venv/lib/python3.12/site-packages (from -r requirements.txt (line 13)) (2.9.0.post0)
+Requirement already satisfied: pytz==2025.1 in ./venv/lib/python3.12/site-packages (from -r requirements.txt (line 14)) (2025.1)
+Requirement already satisfied: reportlab==4.3.1 in ./venv/lib/python3.12/site-packages (from -r requirements.txt (line 15)) (4.3.1)
+Requirement already satisfied: six==1.17.0 in ./venv/lib/python3.12/site-packages (from -r requirements.txt (line 16)) (1.17.0)
+Requirement already satisfied: sqlparse==0.5.3 in ./venv/lib/python3.12/site-packages (from -r requirements.txt (line 17)) (0.5.3)
+Requirement already satisfied: tzdata==2025.1 in ./venv/lib/python3.12/site-packages (from -r requirements.txt (line 18)) (2025.1)
+[0;32m[2026-03-13 15:20:57] ✅ Dependencias instaladas[0m
+[0;34m[INFO] Verificando variables de entorno...[0m
+[0;32m[2026-03-13 15:20:57] ✅ Archivo .env encontrado[0m
+[0;34m[INFO] Creando backup de la base de datos...[0m
+[1;33m[WARNING] No se encontró base de datos para backup[0m
+[0;34m[INFO] Aplicando migraciones...[0m
+No changes detected
+Operations to perform:
+  Apply all migrations: admin, auth, contenttypes, sessions, tikects_app
+Running migrations:
+  Applying contenttypes.0001_initial... OK
+  Applying auth.0001_initial... OK
+  Applying admin.0001_initial... OK
+  Applying admin.0002_logentry_remove_auto_add... OK
+  Applying admin.0003_logentry_add_action_flag_choices... OK
+  Applying contenttypes.0002_remove_content_type_name... OK
+  Applying auth.0002_alter_permission_name_max_length... OK
+  Applying auth.0003_alter_user_email_max_length... OK
+  Applying auth.0004_alter_user_username_opts... OK
+  Applying auth.0005_alter_user_last_login_null... OK
+  Applying auth.0006_require_contenttypes_0002... OK
+  Applying auth.0007_alter_validators_add_error_messages... OK
+  Applying auth.0008_alter_user_username_max_length... OK
+  Applying auth.0009_alter_user_last_name_max_length... OK
+  Applying auth.0010_alter_group_name_max_length... OK
+  Applying auth.0011_update_proxy_permissions... OK
+  Applying auth.0012_alter_user_first_name_max_length... OK
+  Applying sessions.0001_initial... OK
+  Applying tikects_app.0001_initial... OK
+  Applying tikects_app.0002_rename_gerencias_direcciones_and_more... OK
+[0;32m[2026-03-13 15:21:00] ✅ Migraciones aplicadas[0m
+[0;34m[INFO] Recolectando archivos estáticos...[0m
+
+126 static files copied to '/home/christian/tickets/staticfiles', 4 unmodified, 390 post-processed.
+[0;32m[2026-03-13 15:21:01] ✅ Archivos estáticos recolectados[0m
+[0;34m[INFO] Verificando superusuario...[0m
+⚠️  No hay superusuario. Crea uno con: python manage.py createsuperuser
+[0;34m[INFO] Verificando configuración de producción...[0m
+System check identified some issues:
+
+WARNINGS:
+?: (security.W009) Your SECRET_KEY has less than 50 characters, less than 5 unique characters, or it's prefixed with 'django-insecure-' indicating that it was generated automatically by Django. Please generate a long and random value, otherwise many of Django's security-critical features will be vulnerable to attack.
+
+System check identified 1 issue (0 silenced).
+[0;32m[2026-03-13 15:21:02] ✅ Verificación completada[0m
+[0;34m[INFO] Probando importación de módulos...[0m
+✅ Módulos OK
+[0;32m[2026-03-13 15:21:03] ✅ Módulos verificados[0m
+[0;34m[INFO] Configurando permisos...[0m
+[0;32m[2026-03-13 15:21:03] ✅ Permisos configurados[0m
+[0;34m[INFO] Verificando Gunicorn...[0m
+[0;32m[2026-03-13 15:21:03] ✅ Gunicorn instalado[0m
+[0;34m[INFO] Limpiando archivos temporales...[0m
+[0;32m[2026-03-13 15:21:04] ✅ Archivos temporales eliminados[0m
+[0;32m[2026-03-13 15:21:04] ✅ Archivo de versión creado[0m
+[0;32m[2026-03-13 15:21:04] 🎉 Despliegue completado exitosamente![0m
